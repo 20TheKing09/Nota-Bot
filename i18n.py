@@ -1,0 +1,161 @@
+"""English / French UI strings for Nota Bot."""
+
+from __future__ import annotations
+
+from typing import Any
+
+
+def _fmt(s: str, kwargs: dict[str, Any]) -> str:
+    try:
+        return s.format(**kwargs)
+    except Exception:
+        return s
+
+
+def t(lang: str | None, key: str, **kwargs: Any) -> str:
+    code = "fr" if (lang or "").lower().startswith("fr") else "en"
+    bucket = STRINGS.get(code, STRINGS["en"])
+    s = bucket.get(key) or STRINGS["en"].get(key) or key
+    return _fmt(s, kwargs)
+
+
+STRINGS: dict[str, dict[str, str]] = {
+    "en": {
+        "generic.no_guild": "This command must be used in a server.",
+        "generic.no_perm": "You don't have permission to use this.",
+        "generic.error": "Something went wrong: {error}",
+        "generic.done": "Done.",
+        "language.set": "Server language set to **{lang}**.",
+        "language.current": "This server's language is **{lang}**.",
+        "mod.ban.ok": "Banned **{user}**{reason}.",
+        "mod.unban.ok": "Unbanned user `{user_id}`.",
+        "mod.kick.ok": "Kicked **{user}**{reason}.",
+        "mod.timeout.ok": "Timed out **{user}** for {minutes} minute(s).{reason}",
+        "mod.untimeout.ok": "Removed timeout from **{user}**.",
+        "mod.mute.ok": "Muted **{user}** (timeout) for {minutes} minute(s).{reason}",
+        "mod.warn.ok": "Warned **{user}** (warn #{n}).{reason}",
+        "mod.warns.title": "Warnings for {user}",
+        "mod.warns.empty": "No warnings.",
+        "mod.warns.line": "`#{id}` by <@{mod}> — {reason}",
+        "mod.clearwarns.ok": "Cleared {n} warning(s) for **{user}**.",
+        "mod.blacklist.ok": "Blacklisted **{user}**.",
+        "mod.unblacklist.ok": "Removed **{user}** from the blacklist.",
+        "mod.blacklistlist.title": "Blacklisted users",
+        "mod.blacklistlist.empty": "Nobody is blacklisted.",
+        "mod.clear.ok": "Deleted **{n}** message(s).",
+        "mod.clearroom.ok": "Cleared the channel ({n} messages removed).",
+        "channels.lock.ok": "Channel locked.",
+        "channels.unlock.ok": "Channel unlocked.",
+        "channels.slowmode.ok": "Slowmode set to **{seconds}** seconds.",
+        "channels.lockdown.ok": "Lockdown enabled for text channels.",
+        "channels.unlockdown.ok": "Lockdown lifted.",
+        "channels.hideall.ok": "Channels hidden (except the exempt channel).",
+        "channels.unhideall.ok": "Channel visibility restored.",
+        "channels.vlock.ok": "Voice channel locked.",
+        "channels.vunlock.ok": "Voice channel unlocked.",
+        "roles.roleadd.ok": "Added role {role} to **{user}**.",
+        "roles.roleremove.ok": "Removed role {role} from **{user}**.",
+        "roles.rolelock.ok": "Role changes locked for **{user}**.",
+        "roles.roleunlock.ok": "Role changes unlocked for **{user}**.",
+        "roles.temprole.ok": "Temporary role {role} given to **{user}** until <t:{ts}:F>.",
+        "roles.removetemp.ok": "Removed temporary role from **{user}**.",
+        "roles.rankup.ok": "Promoted **{user}** with {role}.",
+        "roles.derank.ok": "Demoted **{user}** (removed {role}).",
+        "level.rank.title": "{user}'s rank",
+        "level.rank.text": "**Level** {level} · **XP** {xp}/{need}\n**Voice** {vh}h {vm}m",
+        "level.lb.title": "Message XP leaderboard",
+        "level.vrank.title": "Voice stats",
+        "level.vlb.title": "Voice time leaderboard",
+        "level.admin.addxp": "Added {n} XP to **{user}**.",
+        "level.admin.reset": "Reset leveling data for **{user}**.",
+        "welcome.view": "Welcome: {on}\nGoodbye: {off}\nChannels: {ch}",
+        "logs.set": "Log channel `{log_type}` set to {channel}.",
+        "logs.view.title": "Log channels",
+        "masterlog.set": "Master log hub guild set.",
+        "masterlog.toggle": "Centralized logs: **{state}**.",
+        "security.raid": "Raid mode: **{state}**.",
+        "confession.sent": "Your confession was sent anonymously.",
+        "confession.disabled": "Confessions are disabled on this server.",
+        "util.avatar": "Avatar",
+        "util.random": "Random picks: {a}, {b}",
+        "util.test": "Latency: **{ms}** ms · Gateway: **{gw}**",
+        "owner.sync": "Synced **{n}** command(s).",
+        "owner.whitelist.add": "Added to whitelist.",
+        "owner.whitelist.remove": "Removed from whitelist.",
+        "backup.created": "Backup saved as `{name}` ({scope}).",
+        "backup.list.title": "Backups",
+        "backup.rename.ok": "Backup renamed.",
+    },
+    "fr": {
+        "generic.no_guild": "Cette commande doit être utilisée sur un serveur.",
+        "generic.no_perm": "Vous n'avez pas la permission d'utiliser ceci.",
+        "generic.error": "Une erreur s'est produite : {error}",
+        "generic.done": "Terminé.",
+        "language.set": "Langue du serveur définie sur **{lang}**.",
+        "language.current": "La langue de ce serveur est **{lang}**.",
+        "mod.ban.ok": "**{user}** a été banni{reason}.",
+        "mod.unban.ok": "L'utilisateur `{user_id}` a été débanni.",
+        "mod.kick.ok": "**{user}** a été expulsé{reason}.",
+        "mod.timeout.ok": "**{user}** mis en timeout pendant {minutes} minute(s).{reason}",
+        "mod.untimeout.ok": "Timeout retiré pour **{user}**.",
+        "mod.mute.ok": "**{user}** mute (timeout) pendant {minutes} minute(s).{reason}",
+        "mod.warn.ok": "**{user}** a reçu un avertissement (warn #{n}).{reason}",
+        "mod.warns.title": "Avertissements pour {user}",
+        "mod.warns.empty": "Aucun avertissement.",
+        "mod.warns.line": "`#{id}` par <@{mod}> — {reason}",
+        "mod.clearwarns.ok": "{n} avertissement(s) effacé(s) pour **{user}**.",
+        "mod.blacklist.ok": "**{user}** a été ajouté à la blacklist.",
+        "mod.unblacklist.ok": "**{user}** a été retiré de la blacklist.",
+        "mod.blacklistlist.title": "Utilisateurs blacklistés",
+        "mod.blacklistlist.empty": "Personne n'est blacklisté.",
+        "mod.clear.ok": "**{n}** message(s) supprimé(s).",
+        "mod.clearroom.ok": "Salon vidé ({n} messages supprimés).",
+        "channels.lock.ok": "Salon verrouillé.",
+        "channels.unlock.ok": "Salon déverrouillé.",
+        "channels.slowmode.ok": "Slowmode réglé sur **{seconds}** secondes.",
+        "channels.lockdown.ok": "Lockdown activé pour les salons textuels.",
+        "channels.unlockdown.ok": "Lockdown levé.",
+        "channels.hideall.ok": "Salons masqués (sauf le salon exempté).",
+        "channels.unhideall.ok": "Visibilité des salons restaurée.",
+        "channels.vlock.ok": "Salon vocal verrouillé.",
+        "channels.vunlock.ok": "Salon vocal déverrouillé.",
+        "roles.roleadd.ok": "Rôle {role} ajouté à **{user}**.",
+        "roles.roleremove.ok": "Rôle {role} retiré à **{user}**.",
+        "roles.rolelock.ok": "Changements de rôles verrouillés pour **{user}**.",
+        "roles.roleunlock.ok": "Changements de rôles déverrouillés pour **{user}**.",
+        "roles.temprole.ok": "Rôle temporaire {role} donné à **{user}** jusqu'à <t:{ts}:F>.",
+        "roles.removetemp.ok": "Rôle temporaire retiré pour **{user}**.",
+        "roles.rankup.ok": "**{user}** promu avec {role}.",
+        "roles.derank.ok": "**{user}** rétrogradé (rôle {role} retiré).",
+        "level.rank.title": "Rang de {user}",
+        "level.rank.text": "**Niveau** {level} · **XP** {xp}/{need}\n**Vocal** {vh}h {vm}m",
+        "level.lb.title": "Classement XP (messages)",
+        "level.vrank.title": "Statistiques vocales",
+        "level.vlb.title": "Classement temps vocal",
+        "level.admin.addxp": "{n} XP ajouté(s) à **{user}**.",
+        "level.admin.reset": "Données de niveau réinitialisées pour **{user}**.",
+        "welcome.view": "Bienvenue : {on}\nDépart : {off}\nSalons : {ch}",
+        "logs.set": "Salon de logs `{log_type}` défini sur {channel}.",
+        "logs.view.title": "Salons de logs",
+        "masterlog.set": "Serveur hub des logs maîtres défini.",
+        "masterlog.toggle": "Logs centralisés : **{state}**.",
+        "security.raid": "Mode raid : **{state}**.",
+        "confession.sent": "Votre confession a été envoyée anonymement.",
+        "confession.disabled": "Les confessions sont désactivées sur ce serveur.",
+        "util.avatar": "Avatar",
+        "util.random": "Tirage aléatoire : {a}, {b}",
+        "util.test": "Latence : **{ms}** ms · Passerelle : **{gw}**",
+        "owner.sync": "**{n}** commande(s) synchronisée(s).",
+        "owner.whitelist.add": "Ajouté à la whitelist.",
+        "owner.whitelist.remove": "Retiré de la whitelist.",
+        "backup.created": "Sauvegarde enregistrée sous `{name}` ({scope}).",
+        "backup.list.title": "Sauvegardes",
+        "backup.rename.ok": "Sauvegarde renommée.",
+    },
+}
+
+
+async def guild_lang(db: Any, guild_id: int | None) -> str:
+    if not guild_id:
+        return "en"
+    return await db.get_guild_language(guild_id)
